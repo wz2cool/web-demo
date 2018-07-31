@@ -16,6 +16,6 @@ $(document).ready(function () {
     }
 
     function doSomehing() {
-        worker.postMessage('work done!');
+        console.log('work done!');
     }
 });
