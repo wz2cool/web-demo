@@ -1,11 +1,20 @@
 $(document).ready(function () {
-    var inputMessage = $("#input_message");
-    var inputSend = $("#input_send");
-    inputSend.on('click', sendMessage);
+    var channel = new MessageChannel();
+    var worker1 = new Worker("js/web-worker.js");
+    var worker2 = new Worker("js/shared-web-worker.js");
 
-    var workerPath = './js/web-worker.js?v=' + new Date().getTime();
-    var sharedWorkerPath = './js/shared-web-worker.js?v=' + new Date().getTime();
-    var worker = new Worker(workerPath);
-    var sharedWorker = new SharedWorker(sharedWorkerPath);
-    
+    // Setup the connection: Port 1 is for worker 1
+    worker1.postMessage({
+        command: "connect",
+    }, [channel.port1]);
+
+    // Setup the connection: Port 2 is for worker 2
+    worker2.postMessage({
+        command: "connect",
+    }, [channel.port2]);
+
+    worker1.postMessage({
+        command: "forward",
+        message: "this message is forwarded to worker 2"
+    });
 });
