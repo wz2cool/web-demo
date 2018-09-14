@@ -1,0 +1,19 @@
+<html>
+
+<head>
+    <script src="https://cdn.bootcss.com/angular.js/1.7.0/angular.min.js"></script>
+</head>
+
+<body ng-app="app">
+    <div ng-controller="mainController">
+        <div ng-if="show.control">123123</div>
+    </div>
+    <script>
+        angular.module("app", [])
+            .controller("mainController", function ($scope) {
+                $scope.show = true;
+            });
+    </script>
+</body>
+
+</html>
